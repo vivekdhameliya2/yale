@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState('');
+  const [input, setInput] = useState('');  // State to store the input from the user
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/search', { query });
-      onSearch(response.data);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
+  const handleSubmit = (e) => {
+    e.preventDefault();  // Prevent the default form submit behavior
+    if (input.trim() === '') {
+      alert('Please enter a valid search query.');  // Basic validation to ensure input is not empty
+      return;
     }
+    onSearch(input);  // Call the onSearch function passed from the parent component with the user input
+    setInput('');  // Optionally clear the input after search
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}  // Update the state with the user input on change
         placeholder="Enter search term..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
       />
       <button type="submit">Search</button>
     </form>
   );
 }
 
-export default SearchBar;
+export default SearchBar; 
