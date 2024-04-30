@@ -1,15 +1,18 @@
 import React from 'react';
 
-function ResultsList({ results, onSelectDetail }) {
+const ResultsList = ({ results, onSelectDetail }) => {
     return (
-        <ul>
-            {results.map(result => (
-                <li key={result.id} onClick={() => onSelectDetail(result.id)}>
-                    Article ID: {result.id}
-                </li>
-            ))}
-        </ul>
+        <div className="results-list">
+            <ul>
+                {results.map(result => (
+                    <li key={result.id}>
+                        <span>{result.id}</span>
+                        <button onClick={() => onSelectDetail(result.id)}>View Details</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
-}
+};
 
-export default ResultsList;
+export default ResultsList;

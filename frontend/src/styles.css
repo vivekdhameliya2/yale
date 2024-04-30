@@ -1,0 +1,121 @@
+/* Reset styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header styles */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* SearchBar styles */
+.search-bar {
+    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    margin-bottom: 10px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    height: 40px; /* Set the height to match the search input */
+}
+
+.search-bar button:hover {
+    background-color: #555;
+}
+
+/* ResultsList styles */
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.results-list li {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results-list li button {
+    padding: 8px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.results-list li button:hover {
+    background-color: #555;
+}
+
+.results-list li span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.results-list li button,
+.results-list li span {
+    flex: 0.2;
+    margin-right: 10px;
+}
+
+/* Pagination styles */
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin-right: 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.pagination li.active a {
+    background-color: #333;
+    color: #fff;
+}

@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
+import '../styles.css'; // Import the CSS file
 
 function SearchBar({ onSearch }) {
-  const [input, setInput] = useState('');  // State to store the input from the user
+  const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();  // Prevent the default form submit behavior
+    e.preventDefault();
     if (input.trim() === '') {
-      alert('Please enter a valid search query.');  // Basic validation to ensure input is not empty
+      alert('Please enter a valid search query.');
       return;
     }
-    onSearch(input);  // Call the onSearch function passed from the parent component with the user input
-    setInput('');  // Optionally clear the input after search
+    onSearch(input);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="search-bar">
       <input
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}  // Update the state with the user input on change
+        onChange={(e) => setInput(e.target.value)}
         placeholder="Enter search term..."
+        className="search-input"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="search-button">Search</button>
     </form>
   );
 }
 
-export default SearchBar; 
+export default SearchBar;

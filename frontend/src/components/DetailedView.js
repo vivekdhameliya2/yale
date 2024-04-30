@@ -1,10 +1,11 @@
 import React from 'react';
+import '../styles.css';
 
 function DetailedView({ details }) {
-    if (!details) return <div>No detail data available.</div>;
+    if (!details) return <div className="detailed-view">No detail data available.</div>;
 
     return (
-        <div>
+        <div className="detailed-view">
             <h3>Publication Details</h3>
             <p><strong>Title:</strong> {details.Title !== "N/A" ? details.Title : "Title not available"}</p>
             <p><strong>Abstract:</strong> {details.Abstract !== "N/A" ? details.Abstract : "Abstract not available"}</p>
