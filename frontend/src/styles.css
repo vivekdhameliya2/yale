@@ -8,8 +8,8 @@
 /* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #feffe0;
+    color: #000000;
     line-height: 1.6;
 }
 
@@ -83,8 +83,9 @@ body {
 }
 
 .results-list li span {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 19px;
+    margin-left: 10px;
+    /* font-weight: bold; */
 }
 
 .results-list li button,
@@ -123,8 +124,8 @@ body {
 
 /* Loader animation */
 .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+    border: 4px solid #000;
+    border-top: 4px solid #fff;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -135,4 +136,22 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+/* DetailedView styles */
+.detailed-view {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px 10px;
+}
+
+.detail-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.detail-item {
+    margin-bottom: 10px;
 }
