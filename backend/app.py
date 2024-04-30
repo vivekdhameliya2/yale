@@ -34,7 +34,7 @@ def search_publications():
     if 'esearchresult' not in result_json:
         return jsonify({'error': 'No search results found'})
 
-    return jsonify(result_json)
+    return jsonify(result_json['esearchresult'])
 
 @app.route('/api/details', methods=['GET'])
 def get_details():
@@ -49,21 +49,27 @@ def get_details():
     if response.status_code != 200:
         return jsonify({'error': 'PubMed API error: ' + response.text}), response.status_code
 
-    root = ET.fromstring(response.text)
-    details = []
-    for article in root.iter('PubmedArticle'):
-        detail = {
-            'PMID': article.find('.//PMID').text,
-            'Title': article.find('.//ArticleTitle').text,
-            'Abstract': article.find('.//AbstractText').text,
-            'AuthorList': ', '.join([author.find('.//LastName').text + ' ' + author.find('.//ForeName').text for author in article.findall('.//Author')]),
-            'Journal': article.find('.//Title').text,
-            'PublicationYear': article.find('.//PubDate//Year').text,
-            'MeSHTerms': ', '.join([mesh.find('.//DescriptorName').text for mesh in article.findall('.//MeshHeading//DescriptorName')])
-        }
-        details.append(detail)
+    try:
+        root = ET.fromstring(response.text)
+        details = []
+        for article in root.iter('PubmedArticle'):
+            authors = article.findall('.//Author')
+            author_list = [author.find('.//LastName').text + ' ' + author.find('.//ForeName').text for author in authors if author.find('.//LastName') and author.find('.//ForeName')]
+            mesh_terms = [mesh.find('.//DescriptorName').text for mesh in article.findall('.//MeshHeading//DescriptorName') if mesh.find('.//DescriptorName')]
+            detail = {
+                'PMID': article.find('.//PMID').text if article.find('.//PMID') else 'N/A',
+                'Title': article.find('.//ArticleTitle').text if article.find('.//ArticleTitle') else 'N/A',
+                'Abstract': ' '.join([ab.text for ab in article.findall('.//AbstractText') if ab.text]) if article.find('.//Abstract') else 'N/A',
+                'AuthorList': ', '.join(author_list) if author_list else 'N/A',
+                'Journal': article.find('.//Title').text if article.find('.//Title') else 'N/A',
+                'PublicationYear': article.find('.//PubDate//Year').text if article.find('.//PubDate//Year') else 'N/A',
+                'MeSHTerms': ', '.join(mesh_terms) if mesh_terms else 'N/A'
+            }
+            details.append(detail)
 
-    return jsonify(details)
+        return jsonify(details)
+    except ET.ParseError as e:
+        return jsonify({'error': 'Failed to parse PubMed response: ' + str(e)}), 500
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
